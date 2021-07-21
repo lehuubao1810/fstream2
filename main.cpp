@@ -1,6 +1,6 @@
 #include<iostream>
 #include<fstream>
-
+abcd 
 using namespace std;
 
 struct game {
