@@ -2,38 +2,38 @@
 #include<fstream>
 
 using namespace std;
-
+fstream file;
 struct game {
     char name[20];
     int id ;
 };
 
-void ghi_File(std::fstream file,game &x)
+void ghi_File(game x)
 {
     file.open("QLGAME.DAT",ios::app);
     file<<x.name<<"\n"<<x.id<<endl;
     file.close();
 }
 
-void doc_File(fstream file,game x)
+
+void xuat_File(game x)
 {
     file.open("QLGAME.DAT",ios::in);
     file>>x.name>>x.id;
-}
-void xuat_File(fstream file,game x)
-{
-    while(!file.eof()) {
+    while(!file.eof())
+    {
         cout<<"Name: "<<x.name<<endl;
         cout<<"ID: "<<x.id<<endl;
-        file.close();
+        file>>x.name>>x.id;
     }
+    file.close();
 }
 
 int main() {
-    fstream file;
     game x;
     cout<<"Nhap ten :";cin>> x.name;
     cout<<"Nhap id :";cin>> x.id;
-    ghi_File(file,x);
+    ghi_File(x);
+    xuat_File(x);
     return 0;
 }
