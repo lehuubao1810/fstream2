@@ -27,15 +27,12 @@ void menu(){
     cout<<"=========================================="<<endl;
     cout<<" MENU "<<"\n";
     cout<<"=========================================="<<endl;
-    cout<<" 1. Thêm game mới vào danh sách và ghi vào file"<<endl;
-    cout<<"3. doc file"<<endl;
-    cout<<" 4. Hiện danh sách tất cả game"<<endl;
-    /*cout<<" 2. Xóa game theo ID "<<endl;
-    cout<<" 3. Cập nhật, sửa đổi game trong danh sách "<<endl;//cập nhật sửa đổi
-
-    cout<<" 5. Tìm kiếm game theo ID"<<endl;
-    cout<<" 6. Sắp xếp game giảm dần theo năm"<<endl;*/
-    cout<<" 7. Thoát chương trình"<<endl;
+    cout<<" 1. Thêm game mới vào danh sách và ghi vào file QLGAME.DAT"<<endl;
+    cout<<" 2. Hiện danh sách tất cả game từ dữ liệu trong file QLGAME.DAT"<<endl;
+    cout<<" 3. Xóa game theo ID "<<endl;
+    cout<<" 4. Tìm kiếm game theo ID"<<endl;
+    cout<<" 5. Sắp xếp game giảm dần theo năm"<<endl;
+    cout<<" 6. Thoát chương trình"<<endl;
 }
 //Hàm để thêm 1 game mới vào danh sách
 void them_game(struct game st[],int& biendem){
@@ -90,8 +87,6 @@ void danhsach(struct game st[], int biendem){
         i=i+1;
 
     }
-
-
 }
 
 //Hàm xóa game theo ID
@@ -154,10 +149,7 @@ void doc_File(struct game st[],int biendem) {
         file>>st[i].id>>st[i].name_game>>st[i].theloai>>st[i].phienban>>st[i].dungluong>>st[i].luottai>>st[i].namsx;
         i=i+1;
     }
-    cout<<left<<setw(5)<<"ID"<<setw(10)<<"TÊN"<<setw(15)<<"THỂ LOẠI"
-        <<setw(15)<<"PHIÊN BẢN"<<setw(15)<<"DUNG LƯỢNG"<<setw(15)<<"LƯỢT TẢI"<<setw(15)<<"NĂM SẢN XUẤT"<<endl;
-    cout<<"==============================================\n";
-    while(!file.eof())
+    /*while(!file.eof())
     {
         cout<<left<<setw(5)<<st[i].id<<setw(10)<<st[i].name_game<<setw(15)
             <<st[i].theloai;
@@ -167,62 +159,9 @@ void doc_File(struct game st[],int biendem) {
             file>>st[i].id>>st[i].name_game>>st[i].theloai>>st[i].phienban>>st[i].dungluong>>st[i].luottai>>st[i].namsx;
             i=i+1;
         }
-    }
+    }*/
     file.close();
-}
-
-
-
-//Hàm cập nhật sửa đổi game cso trong danh sách
-void sua_game(struct game st[],int biendem){
-    string id;
-    int column_index;
-    cout<<"Nhập ID của game: ";
-    cin>>id;
-    cout<<"Bạn muốn cập nhật phần nào (1-6) ?: ";
-    cin>>column_index;
-
-    int index = timvitri(st, id,biendem);
-
-    if (index != -1)
-    {
-        if (column_index == 1)
-        {
-            cout<<"Nhập tên của game: ";
-
-            cin>>st[index].name_game;
-        }
-
-        else if (column_index == 2)
-        {
-            cout<<"Nhập thể loại của game: ";
-            cin>>st[index].theloai;
-        }
-        else if (column_index == 3)
-        {
-            cout<<"Nhập phiên bản của game: ";
-            cin>>st[index].phienban;
-        }
-        else if (column_index == 4)
-        {
-            cout<<"Nhập dung lương của game: ";
-            cin>>st[index].dungluong;
-        }
-        else if (column_index == 5)
-        {
-            cout<<"Nhập số lượt tải của game: ";
-            cin>>st[index].luottai;
-        }
-        else if (column_index == 6)
-        {
-            cout<<"Nhập năm sản xuất của game: ";
-            cin>>st[index].namsx;
-        }
-        else cout<<"Không có mục hợp lệ";
-    }
-    else cout<<"Game không tồn tại. Vui lòng kiểm tra lại ID.";
-
-
+    danhsach(st, biendem);
 }
 
 //Hàm tìm game theo ID
@@ -285,29 +224,26 @@ int main(int argc, char *argv[])
 
 
     game st[80];
-    int biendem=0;
+    int biendem=3;
     int luachon;
     char tieptuc;
     do
     {
         menu();//Hiện menu
-        cout<<"\nLựa chọn của bạn (1-7): ";
+        cout<<"\nLựa chọn của bạn (1-6): ";
         cin>>luachon;
 
         switch(luachon){
             case 1:them_game(st, biendem);break;
-            /*case 2:xoa_game(st, biendem);break;
-            case 3:sua_game(st, biendem);break;
-
-            case 5:timkiem(st, biendem);break;
-            case 6:sapxep(st,biendem);break;*/
-            case 3: doc_File(st,biendem);
-            case 4:danhsach(st, biendem);break;
-            case 7: cout<<"Đang thoát chương trình";break;
+            case 2: doc_File(st,biendem);break;
+            case 3:timkiem(st, biendem);break;
+            case 4:xoa_game(st, biendem);break;
+            case 5:sapxep(st,biendem);break;
+            case 6: cout<<"Đang thoát chương trình";break;
             default:cout<<"Lựa chọn không hợp lệ";
 
         }
-        if(luachon == 7){
+        if(luachon == 6){
             break;
         }else{
             cout<<"Nhan y hoac Y de tiep tuc: ";
