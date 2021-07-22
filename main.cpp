@@ -27,8 +27,7 @@ void menu(){
     cout<<"=========================================="<<endl;
     cout<<" MENU "<<"\n";
     cout<<"=========================================="<<endl;
-    cout<<" 1. Thêm game mới vào danh sách"<<endl;
-    cout<<"2.ghi file"<<endl;
+    cout<<" 1. Thêm game mới vào danh sách và ghi vào file"<<endl;
     cout<<"3. doc file"<<endl;
     cout<<" 4. Hiện danh sách tất cả game"<<endl;
     /*cout<<" 2. Xóa game theo ID "<<endl;
@@ -57,6 +56,19 @@ void them_game(struct game st[],int& biendem){
     cout<<"Nhập năm sản xuất của game: ";cin>>st[biendem].namsx;
 
     ++biendem;
+    file.open("QLGAME.DAT",ios::app);
+    int i = 0;
+    while(i<=biendem){
+        if(st[i].id!=""){
+            file<<left<<setw(5)<<st[i].id<<setw(15)<<st[i].name_game<<setw(15)
+                <<st[i].theloai;
+            file<<setw(15)<<st[i].phienban<<setw(12)<<st[i].dungluong<<setw(12)<<st[i].luottai
+                <<setw(12)<<st[i].namsx;
+
+            file<<"\n";}
+        i=i+1;
+    }
+    file.close();
 
 
 }
@@ -133,21 +145,6 @@ void clean(struct game st[],int index)
     st[index].namsx = 0;
 
 
-}
-void ghi_File(struct game st[],int biendem){
-    file.open("QLGAME.DAT",ios::app);
-    int i = 0;
-    while(i<=biendem){
-        if(st[i].id!=""){
-            file<<left<<setw(5)<<st[i].id<<setw(15)<<st[i].name_game<<setw(15)
-                <<st[i].theloai;
-            file<<setw(15)<<st[i].phienban<<setw(12)<<st[i].dungluong<<setw(12)<<st[i].luottai
-                <<setw(12)<<st[i].namsx;
-
-            file<<"\n";}
-        i=i+1;
-    }
-    file.close();
 }
 
 void doc_File(struct game st[],int biendem) {
@@ -304,7 +301,6 @@ int main(int argc, char *argv[])
 
             case 5:timkiem(st, biendem);break;
             case 6:sapxep(st,biendem);break;*/
-            case 2: ghi_File(st,biendem);
             case 3: doc_File(st,biendem);
             case 4:danhsach(st, biendem);break;
             case 7: cout<<"Đang thoát chương trình";break;
