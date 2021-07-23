@@ -196,10 +196,9 @@ void xoa_game(struct game st[], int& biendem){
                 {
                     st[i] = st[i + 1];
                     xoa(st, biendem);
-                    --biendem ;
-
-                    cout<<"Game đã được xóa.\n";
                 }
+                --biendem ;
+                cout<<"Game đã được xóa.\n";
             }
         }
         else cout<<"Game không tổn tại. Vui lòng kiểm tra lại ID.\n"; // Nếu không tồn tại ID thì yêu cầu kiểm tra lại.
