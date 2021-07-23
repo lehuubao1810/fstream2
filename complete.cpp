@@ -187,7 +187,6 @@ void xoa_game(struct game st[], int& biendem){
             {
                 xoa(st, index);
                 --biendem;
-
                 cout<<"Game đã được xóa.\n";
             }
             else //Xóa game ở giữa
@@ -195,7 +194,6 @@ void xoa_game(struct game st[], int& biendem){
                 for (int i = index; i < biendem-1; i++)
                 {
                     st[i] = st[i + 1];
-                    xoa(st, biendem);
                 }
                 --biendem ;
                 cout<<"Game đã được xóa.\n";
