@@ -79,7 +79,7 @@ void saochep_Dulieu(game st[])
     {
         // Đọc hết dữ liệu từ file
         file >> st[i].stt >> st[i].id >> st[i].name_game >> st[i].theloai >> st[i].phienban >> st[i].dungluong >> st[i].luottai >> st[i].namsx;
-        while(!file.eof()) // Quét hết các dữ liệu trong file để sao chép từng phần tử vào mảng
+        while(!file.eof()) // Đọc từng dữ liệu đến hết file // sao chép từng phần tử vào mảng
         {
             i++;
             file >> st[i].stt >> st[i].id >> st[i].name_game >> st[i].theloai >> st[i].phienban >> st[i].dungluong >> st[i].luottai >> st[i].namsx;
@@ -137,8 +137,8 @@ void them_game(struct game st[]){
     cout<<"Nhập năm sản xuất của game: ";cin>>st[biendem].namsx;
 
     // Ghi thông tin vào file QLGAME.DAT
-    file.open("QLGAME.DAT",ios::app | ios::out); //Mở file ở chế độ ghi và ghi ở cuối file 
-    st[biendem].stt = biendem + 1; 
+    file.open("QLGAME.DAT",ios::app | ios::out); //Mở file ở chế độ ghi và ghi ở cuối file
+    st[biendem].stt = biendem + 1;
     file<<st[biendem].stt<<" "<<st[biendem].id<<" "<<st[biendem].name_game<<" "<<st[biendem].theloai<<" "<<st[biendem].phienban<<" "<<st[biendem].dungluong<<" "<<st[biendem].luottai<<" "<<st[biendem].namsx<<endl;
     biendem++;
     file.close();
@@ -147,46 +147,54 @@ void them_game(struct game st[]){
 //Hàm hiện danh sách tất cả các game
 void danhsach(struct game st[]){
     int i=0;
-    cout<<left<<setw(5)<<"ID"<<setw(10)<<"TÊN"<<setw(15)<<"THỂ LOẠI"
-        <<setw(15)<<"PHIÊN BẢN"<<setw(15)<<"DUNG LƯỢNG"<<setw(15)<<"LƯỢT TẢI"<<setw(15)<<"NĂM SẢN XUẤT"<<endl;
-    cout<<"==============================================\n";
-    
+    cout<<setw(5)<<left<<"ID";
+    cout<<setw(15)<<left<<"TÊN";
+    cout<<setw(20)<<left<<"THỂ LOẠI";
+    cout<<setw(20)<<left<<"PHIÊN BẢN";
+    cout<<setw(20)<<left<<"DUNG LƯỢNG";
+    cout<<setw(20)<<left<<"LƯỢT TẢI";
+    cout<<setw(20)<<right<<"NĂM SẢN XUẤT"<<endl;
+    cout<<"==================================================================================================\n";
+
     // Quét qua từng phần tử của mảng để in ra màn hình
     while(i<biendem){
         if(st[i].id!=""){
-            cout<<left<<setw(5)<<st[i].id<<setw(10)<<st[i].name_game<<setw(15)
-                <<st[i].theloai;
-            cout<<setw(15)<<st[i].phienban<<setw(12)<<st[i].dungluong<<setw(12)<<st[i].luottai
-                <<setw(12)<<st[i].namsx;
+            cout<<setw(5)<<left<<st[i].id;
+            cout<<setw(15)<<left<<st[i].name_game;
+            cout<<setw(15)<<left<<st[i].theloai;
+            cout<<setw(20)<<left<<st[i].phienban;
+            cout<<setw(15)<<left<<st[i].dungluong;
+            cout<<setw(20)<<left<<st[i].luottai;
+            cout<<setw(15)<<left<<st[i].namsx;
             cout<<"\n";}
         i=i+1;
 
     }
 }
 
-// Hàm xóa game theo ID 
+// Hàm xóa game theo ID
 void xoa_game(struct game st[], int& biendem){
     string id;
     int index;
-    if (biendem > 0) // Phải có ít nhất 1 game thì mới có thể xóa được 
+    if (biendem > 0) // Phải có ít nhất 1 game thì mới có thể xóa được
     {
         cout<<"Nhập ID của game: ";
         cin>>id;
         index = xacdinh(st, id,biendem); // Xác định vị trí game cần xóa dựa vào ID và hàm xacdinh()
-        if ((index!=-1) && (biendem != 0)) // Nếu ID tồn tại và biến đếm khác 0 thì tiếp tục hàm 
+        if ((index!=-1) && (biendem != 0)) // Nếu ID tồn tại và biến đếm khác 0 thì tiếp tục hàm
         {
             if (index == (biendem-1)) //Xóa game cuối cùng
             {
                 xoa(st, index);
                 --biendem;
-                
+
                 cout<<"Game đã được xóa.\n";
             }
             else //Xóa game ở giữa
             {
                 for (int i = index; i < biendem-1; i++)
                 {
-                    st[i] = st[i + 1]; 
+                    st[i] = st[i + 1];
                     xoa(st, biendem);
                     --biendem ;
 
@@ -202,9 +210,9 @@ void xoa_game(struct game st[], int& biendem){
     }
     //
 
-    file.open("QLGAME.DAT",ios::trunc | ios::out); // Mở file ở chế độ ghi và xóa hết dữ liệu cũ 
+    file.open("QLGAME.DAT",ios::trunc | ios::out); // Mở file ở chế độ ghi và xóa hết dữ liệu cũ
     int i=0;
-    biendem -=1; // Giảm biến đếm 1 vì đã xóa 1 game
+    biendem -=1;
     while(i<= biendem){
         st[i].stt = i+1; // Điều chỉnh lại stt theo số game còn lại sau khi xóa
         file<<st[i].stt<<" "<<st[i].id<<" "<<st[i].name_game<<" "<<st[i].theloai<<" "<<st[i].phienban<<" "<<st[i].dungluong<<" "<<st[i].luottai<<" "<<st[i].namsx<<endl;
@@ -222,14 +230,23 @@ void timkiem(struct game st[])
 
     int index=xacdinh(st,id,biendem);
     if (index != -1)
-    { // Hiển thị bản ghi đã tìm thấy 
-        cout<<left<<setw(5)<<"ID"<<setw(10)<<"TÊN"<<setw(15)<<"THỂ LOẠI"
-            <<setw(15)<<"PHIÊN BẢN"<<setw(15)<<"DUNG LƯỢNG"<<setw(15)<<"LƯỢT TẢI"<<setw(15)<<"NĂM SẢN XUẤT"<<endl;
-        cout<<"==============================================\n";
-        cout<<left<<setw(5)<<st[index].id<<setw(10)<<st[index].name_game<<setw(15)<<st[index].theloai;
-        cout<<setw(15)<<st[index].phienban<<setw(12)<<st[index].dungluong<<setw(12)
-            <<st[index].luottai
-            <<setw(12)<<st[index].namsx;
+    { // Hiển thị bản ghi đã tìm thấy
+        cout<<setw(5)<<left<<"ID";
+        cout<<setw(15)<<left<<"TÊN";
+        cout<<setw(20)<<left<<"THỂ LOẠI";
+        cout<<setw(20)<<left<<"PHIÊN BẢN";
+        cout<<setw(20)<<left<<"DUNG LƯỢNG";
+        cout<<setw(20)<<left<<"LƯỢT TẢI";
+        cout<<setw(20)<<right<<"NĂM SẢN XUẤT"<<endl;
+        cout<<"==================================================================================================\n";
+        //
+        cout<<setw(5)<<left<<st[index].id;
+        cout<<setw(15)<<left<<st[index].name_game;
+        cout<<setw(15)<<left<<st[index].theloai;
+        cout<<setw(20)<<left<<st[index].phienban;
+        cout<<setw(15)<<left<<st[index].dungluong;
+        cout<<setw(20)<<left<<st[index].luottai;
+        cout<<setw(15)<<left<<st[index].namsx;
         cout<<"\n";
 
     }
@@ -253,7 +270,7 @@ void sapxep(struct game st[])
     file.open("QLGAME.DAT",ios::trunc | ios::out); // Mở file ở chế độ ghi và xóa hết dữ liệu cũ
     i=0;
     while(i< biendem){
-        st[i].stt = i+1; // Điều chỉnh lại số thứ tự sau khi sắp xếp 
+        st[i].stt = i+1; // Điều chỉnh lại số thứ tự sau khi sắp xếp
         file<<st[i].stt<<" "<<st[i].id<<" "<<st[i].name_game<<" "<<st[i].theloai<<" "<<st[i].phienban<<" "<<st[i].dungluong<<" "<<st[i].luottai<<" "<<st[i].namsx<<endl;
         i++;
     }
@@ -279,7 +296,7 @@ int main()
             case 3:timkiem(st);break;
             case 4:xoa_game(st, biendem);break;
             case 5:sapxep(st);break;
-            case 6: cout<<"Đang thoát chương trình";break;
+            case 6: cout<<"Đang thoát chương trình ...";break;
             default:cout<<"Lựa chọn không hợp lệ";
         }
         if(luachon == 6){
