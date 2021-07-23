@@ -117,7 +117,7 @@ void xoa(struct game st[],int index)
 void them_game(struct game st[]){
 
     again:
-    cout<<"\nnhap ID: ";
+    cout<<"\nNhập ID của game: ";
     cin>>st[biendem].id;// Nhập ID game
     // Xác định xem có bị trùng ID không dựa hàm xacdinh()
     if (biendem != 0)
