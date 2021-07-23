@@ -124,7 +124,7 @@ void them_game(struct game st[]){
     {
         if (xacdinh(st, st[biendem].id, biendem) != -1)
         {
-            cout<<"Id da ton tai\n";goto again;
+            cout<<"ID đã tồn tại. Vui lòng nhập lại\n";goto again;
         }
     }
     //Nhập các thông tin cần thiết
