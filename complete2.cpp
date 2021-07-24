@@ -298,7 +298,7 @@ int main()
             case 4:xoa_game(st, biendem);break;
             case 5:sapxep(st);break;
             case 6: cout<<"Đang thoát chương trình ...";break;
-            default:cout<<"Lựa chọn không hợp lệ";
+            default:cout<<"Lựa chọn không hợp lệ"<<endl;
         }
         if(luachon == 6){
             break;
