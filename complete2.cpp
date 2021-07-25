@@ -1,6 +1,5 @@
 #include <iostream>
 #include <iomanip>
-#include <string.h>
 #include <fstream>
 using namespace std;
 
@@ -25,7 +24,6 @@ void menu();
 void capnhat_Biendem(game st_temp);
 void saochep_Dulieu(game st[]);
 int xacdinh(struct game st[],string id, int biendem);
-void xoa(struct game st[],int deleteitem);
 
 //Hàm để hiện ra menu lựa chọn
 void menu(){
@@ -107,19 +105,6 @@ int xacdinh(struct game st[], string id,int biendem)
     return found; // Vị trí đã tìm được
 }
 
-// Xóa dữ liệu của 1 game bất kì được chọn
-void xoa(struct game st[],int index)
-{
-    // Đưa hết dữ liệu về ban đầu
-    st[index].id ="";
-    st[index].ten_game ="";
-    st[index].theloai ="";
-    st[index].phienban ="";
-    st[index].dungluong = 0;
-    st[index].luottai = 0;
-    st[index].namsx = 0;
-}
-
 //Hàm để thêm 1 game mới vào danh sách
 void them_game(struct game st[]){
 
@@ -196,7 +181,6 @@ void xoa_game(struct game st[], int& biendem){
         {
             if (index == (biendem-1)) //Xóa game cuối cùng
             {
-                xoa(st, index);
                 --biendem;
                 cout<<"Game đã được xóa.\n";
             }
