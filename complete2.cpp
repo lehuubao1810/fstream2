@@ -12,9 +12,9 @@ struct game
 {
     int stt = 0;
     string id;
-    char name_game[50];
-    char theloai[50];
-    char phienban[50];
+    string ten_game;
+    string theloai;
+    string phienban;
     int dungluong;
     int luottai;
     int namsx;
@@ -53,10 +53,14 @@ void capnhat_Biendem(game st_temp)
     } else // File đã được tạo
     {
         // Đọc hết dữ liệu từ file
-        file >> st_temp.stt >> st_temp.id >> st_temp.name_game >> st_temp.theloai >> st_temp.phienban >> st_temp.dungluong >> st_temp.luottai >> st_temp.namsx;
-        while(!file.eof()) // Quét hết các dữ liệu trong file
-       {
-            file >> st_temp.stt >> st_temp.id >> st_temp.name_game >> st_temp.theloai >> st_temp.phienban >> st_temp.dungluong >> st_temp.luottai >> st_temp.namsx;
+        file >> st_temp.stt >> st_temp.id;
+        getline(file,st_temp.ten_game,'@') ;
+        file>> st_temp.theloai >> st_temp.phienban >> st_temp.dungluong >> st_temp.luottai >> st_temp.namsx;
+        while(!file.eof()) // Quét đến dữ liệu cuối file
+        {
+            file >> st_temp.stt >> st_temp.id;
+            getline(file,st_temp.ten_game,'@') ;
+            file>> st_temp.theloai >> st_temp.phienban >> st_temp.dungluong >> st_temp.luottai >> st_temp.namsx;
         }
     }
     if (st_temp.stt != 0) // Nếu đã có dữ liệu trong file
@@ -78,11 +82,15 @@ void saochep_Dulieu(game st[])
     } else // File đã được tạo
     {
         // Đọc hết dữ liệu từ file
-        file >> st[i].stt >> st[i].id >> st[i].name_game >> st[i].theloai >> st[i].phienban >> st[i].dungluong >> st[i].luottai >> st[i].namsx;
+        file >> st[i].stt >> st[i].id;
+        getline(file,st[i].ten_game,'@');
+        file>> st[i].theloai >> st[i].phienban >> st[i].dungluong >> st[i].luottai >> st[i].namsx;
         while(!file.eof()) // Đọc từng dữ liệu đến hết file // sao chép từng phần tử vào mảng
         {
             i++;
-            file >> st[i].stt >> st[i].id>>st[i].name_game>> st[i].theloai >> st[i].phienban >> st[i].dungluong >> st[i].luottai >> st[i].namsx;
+            file >> st[i].stt >> st[i].id;
+            getline(file,st[i].ten_game,'@');
+            file>> st[i].theloai >> st[i].phienban >> st[i].dungluong >> st[i].luottai >> st[i].namsx;
         }
     }
     file.close();
@@ -104,13 +112,12 @@ void xoa(struct game st[],int index)
 {
     // Đưa hết dữ liệu về ban đầu
     st[index].id ="";
-    strcpy(st[index].name_game,"");
-    strcpy(st[index].theloai,"");
-    strcpy(st[index].phienban,"");
+    st[index].ten_game ="";
+    st[index].theloai ="";
+    st[index].phienban ="";
     st[index].dungluong = 0;
     st[index].luottai = 0;
     st[index].namsx = 0;
-
 }
 
 //Hàm để thêm 1 game mới vào danh sách
@@ -130,7 +137,7 @@ void them_game(struct game st[]){
     //Nhập các thông tin cần thiết
     cout<<"Nhập tên của game: ";
     cin.ignore();
-    cin.getline(st[biendem].name_game,50);
+    getline(cin,st[biendem].ten_game);
     cout<<"Nhập thể loại game: ";cin>>st[biendem].theloai;
     cout<<"Nhập phiên bản của game: ";cin>>st[biendem].phienban;
     cout<<"Nhập dung lượng của game (MB): ";cin>>st[biendem].dungluong;
@@ -140,7 +147,7 @@ void them_game(struct game st[]){
     // Ghi thông tin vào file QLGAME.DAT
     file.open("QLGAME.DAT",ios::app | ios::out); //Mở file ở chế độ ghi và ghi ở cuối file
     st[biendem].stt = biendem + 1;
-    file<<st[biendem].stt<<" "<<st[biendem].id<<" "<<st[biendem].name_game<<" "<<st[biendem].theloai<<" "<<st[biendem].phienban<<" "<<st[biendem].dungluong<<" "<<st[biendem].luottai<<" "<<st[biendem].namsx<<endl;
+    file<<st[biendem].stt<<" "<<st[biendem].id<<" "<<st[biendem].ten_game<<"@ "<<st[biendem].theloai<<" "<<st[biendem].phienban<<" "<<st[biendem].dungluong<<" "<<st[biendem].luottai<<" "<<st[biendem].namsx<<endl;
     biendem++;
     file.close();
 }
@@ -152,19 +159,19 @@ void danhsach(struct game st[]){
     }*/
     int i=0;
     cout<<setw(5)<<left<<"ID";
-    cout<<setw(15)<<left<<"TÊN";
+    cout<<setw(25)<<left<<"TÊN";
     cout<<setw(20)<<left<<"THỂ LOẠI";
     cout<<setw(20)<<left<<"PHIÊN BẢN";
     cout<<setw(20)<<left<<"DUNG LƯỢNG";
     cout<<setw(20)<<left<<"LƯỢT TẢI";
     cout<<setw(20)<<right<<"NĂM SẢN XUẤT"<<endl;
-    cout<<"==================================================================================================\n";
+    cout<<"=============================================================================================================\n";
 
     // Quét qua từng phần tử của mảng để in ra màn hình
     while(i<biendem){
         if(st[i].id!=""){
             cout<<setw(5)<<left<<st[i].id;
-            cout<<setw(15)<<left<<st[i].name_game;
+            cout<<setw(25)<<left<<st[i].ten_game;
             cout<<setw(15)<<left<<st[i].theloai;
             cout<<setw(20)<<left<<st[i].phienban;
             cout<<setw(15)<<left<<st[i].dungluong;
@@ -213,14 +220,12 @@ void xoa_game(struct game st[], int& biendem){
 
     file.open("QLGAME.DAT",ios::trunc | ios::out); // Mở file ở chế độ ghi và xóa hết dữ liệu cũ
     int i=0;
-    biendem -=1;
-    while(i<= biendem){
+    while(i< biendem){
         st[i].stt = i+1; // Điều chỉnh lại stt theo số game còn lại sau khi xóa
-        file<<st[i].stt<<" "<<st[i].id<<" "<<st[i].name_game<<" "<<st[i].theloai<<" "<<st[i].phienban<<" "<<st[i].dungluong<<" "<<st[i].luottai<<" "<<st[i].namsx<<endl;
+        file<<st[i].stt<<" "<<st[i].id<<" "<<st[i].ten_game<<"@ "<<st[i].theloai<<" "<<st[i].phienban<<" "<<st[i].dungluong<<" "<<st[i].luottai<<" "<<st[i].namsx<<endl;
         i++;
     }
     file.close();
-    biendem +=1;
 }
 
 void timkiem(struct game st[])
@@ -233,7 +238,7 @@ void timkiem(struct game st[])
     if (index != -1)
     { // Hiển thị bản ghi đã tìm thấy
         cout<<setw(5)<<left<<"ID";
-        cout<<setw(15)<<left<<"TÊN";
+        cout<<setw(20)<<left<<"TÊN";
         cout<<setw(20)<<left<<"THỂ LOẠI";
         cout<<setw(20)<<left<<"PHIÊN BẢN";
         cout<<setw(20)<<left<<"DUNG LƯỢNG";
@@ -242,7 +247,7 @@ void timkiem(struct game st[])
         cout<<"==================================================================================================\n";
         //
         cout<<setw(5)<<left<<st[index].id;
-        cout<<setw(15)<<left<<st[index].name_game;
+        cout<<setw(20)<<left<<st[index].ten_game;
         cout<<setw(15)<<left<<st[index].theloai;
         cout<<setw(20)<<left<<st[index].phienban;
         cout<<setw(15)<<left<<st[index].dungluong;
@@ -268,11 +273,12 @@ void sapxep(struct game st[])
                 st[j - 1] = temp;
             }
 
+    cout<<"Đã sắp xếp theo năm giảm dần!"<<endl;
     file.open("QLGAME.DAT",ios::trunc | ios::out); // Mở file ở chế độ ghi và xóa hết dữ liệu cũ
     i=0;
     while(i< biendem){
         st[i].stt = i+1; // Điều chỉnh lại số thứ tự sau khi sắp xếp
-        file<<st[i].stt<<" "<<st[i].id<<" "<<st[i].name_game<<" "<<st[i].theloai<<" "<<st[i].phienban<<" "<<st[i].dungluong<<" "<<st[i].luottai<<" "<<st[i].namsx<<endl;
+        file<<st[i].stt<<" "<<st[i].id<<" "<<st[i].ten_game<<"@ "<<st[i].theloai<<" "<<st[i].phienban<<" "<<st[i].dungluong<<" "<<st[i].luottai<<" "<<st[i].namsx<<endl;
         i++;
     }
     file.close();
