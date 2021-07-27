@@ -309,7 +309,7 @@ void nhonhat(game st[]){
             index = st[i].stt - 1;
         }
     }
-    cout<<"Lượt tải lớn nhất là : "<<minn<<endl;
+    cout<<"Lượt tải nhỏ nhất là : "<<minn<<endl;
     cout<<setw(5)<<left<<"ID";
     cout<<setw(20)<<left<<"TÊN";
     cout<<setw(20)<<left<<"THỂ LOẠI";
@@ -341,7 +341,7 @@ int main()
     {
         lai:
             menu();//Hiện menu
-            cout<<"\nLựa chọn của bạn (1-7): ";
+            cout<<"\nLựa chọn của bạn (1-8): ";
             cin>>luachon;
 
             switch(luachon){
