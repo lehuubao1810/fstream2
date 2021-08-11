@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
+#include <string>
 using namespace std;
 
 fstream file; // Khai báo file thuộc fstream với chức năng đọc, ghi và tạo file.
