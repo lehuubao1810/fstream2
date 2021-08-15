@@ -497,17 +497,51 @@ void bltheloai(game st[]){
         stt += 1;
     }
     cout<<"Chọn thể loại: ";cin>> a;
+    cout<<setw(5)<<left<<"ID";
+    cout<<setw(20)<<left<<"TÊN";
+    cout<<setw(20)<<left<<"THỂ LOẠI";
+    cout<<setw(20)<<left<<"PHIÊN BẢN";
+    cout<<setw(20)<<left<<"DUNG LƯỢNG";
+    cout<<setw(20)<<left<<"LƯỢT TẢI";
+    cout<<setw(20)<<right<<"NĂM SẢN XUẤT"<<endl;
+    cout<<"=============================================================================================================\n";
     for(int i = 0; i<biendem;i++){
         if(st[i].theloai == tl[a]){
-            cout<<setw(5)<<left<<"ID";
-            cout<<setw(20)<<left<<"TÊN";
-            cout<<setw(20)<<left<<"THỂ LOẠI";
-            cout<<setw(20)<<left<<"PHIÊN BẢN";
-            cout<<setw(20)<<left<<"DUNG LƯỢNG";
-            cout<<setw(20)<<left<<"LƯỢT TẢI";
-            cout<<setw(20)<<right<<"NĂM SẢN XUẤT"<<endl;
-            cout<<"=============================================================================================================\n";
-            //
+            cout<<setw(5)<<left<<st[i].id;
+            cout<<setw(20)<<left<<st[i].ten_game;
+            cout<<setw(15)<<left<<st[i].theloai;
+            cout<<setw(20)<<left<<st[i].phienban;
+            cout<<setw(15)<<left<<st[i].dungluong;
+            cout<<setw(20)<<left<<st[i].luottai;
+            cout<<setw(15)<<left<<st[i].namsx;
+            cout<<"\n";
+        }
+    }
+}
+
+void blnamsx(game st[]) {
+    int namsx[100];
+    int a;
+    int stt = 1;
+    for (int i =0; i<biendem; i++){
+        if ( i > 0 && st[i].namsx == st[i-1].namsx){
+            continue;
+        }
+        namsx[stt] = st[i].namsx;
+        cout<< stt <<". Năm " << namsx[stt] <<endl;
+        stt += 1;
+    }
+    cout<<"Chọn năm sản xuất: ";cin>> a;
+    cout<<setw(5)<<left<<"ID";
+    cout<<setw(20)<<left<<"TÊN";
+    cout<<setw(20)<<left<<"THỂ LOẠI";
+    cout<<setw(20)<<left<<"PHIÊN BẢN";
+    cout<<setw(20)<<left<<"DUNG LƯỢNG";
+    cout<<setw(20)<<left<<"LƯỢT TẢI";
+    cout<<setw(20)<<right<<"NĂM SẢN XUẤT"<<endl;
+    cout<<"=============================================================================================================\n";
+    for(int i = 0; i<biendem;i++){
+        if(st[i].namsx == namsx[a]){
             cout<<setw(5)<<left<<st[i].id;
             cout<<setw(20)<<left<<st[i].ten_game;
             cout<<setw(15)<<left<<st[i].theloai;
@@ -526,14 +560,9 @@ void boloc(game st[]){
     cout<<"Nhập lựa chọn : ";cin>>b;
     switch(b) {
         case 1: bltheloai(st);break;
-        case 2:
-            ltlonnhat(st);
-            ltnhonhat(st);
-            break;
-        case 3:
-            nsxlonnhat(st);
-            nsxnhonhat(st);
-            break;
+        case 2: blnamsx(st);break;
+        default:
+            cout<<"Lựa chọn không hợp lệ!!";
     }
 }
 
