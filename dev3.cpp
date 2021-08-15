@@ -36,7 +36,7 @@ void menu(){
     cout<<" 2. Hiện danh sách game từ dữ liệu trong file QLGAME.DAT "<<endl;
     cout<<" 3. Tìm kiếm game"<<endl;
     cout<<" 4. Xóa game theo ID"<<endl;
-    cout<<" 5. Sắp xếp theo năm sản xuất giảm dần"<<endl;
+    cout<<" 5. Sắp xếp game"<<endl;
     cout<<" 6. Chỉnh sửa thông tin game"<<endl;
     cout<<" 7. Thoát chương trình"<<endl;
 }
